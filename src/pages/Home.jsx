@@ -31,25 +31,28 @@ function Home(){
         e.preventDefault();
         alert(searchQuery);
         setSearchQuery("");
-    }
+    };
     return <div className="home">
         <form onSubmit={handleSearch} className="search-form">
-            <input type="text"
+            <input 
+            type="text"
              placeholder="search for movies..." 
             className="search-input"
             value={searchQuery}
             onChange={(e)=>setSearchQuery(e.target.value)}
             />
-            <button type='submit'className="search-button">Search</button>
+            <button type='submit'className="search-button">
+                Search
+                </button>
         </form>
-        <div className="movie-grid">
-           {movies.map(
-           (movie)=>
-           (
+        {error && <div className="error-message">{error}</div>}
+        {loading?(<div className="loading">Loading...</div>
+        ) : (
+            <div className="movie-grid">
+           {movies.map((movie)=>(
            < MovieCard movie={movie} key={movie.id}/>
-           )
-           )}
-        </div>
+           ))}
+        </div>)}
     </div>
 }
 export default Home;
