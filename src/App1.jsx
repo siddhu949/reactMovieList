@@ -40,3 +40,9 @@ function App() {
     </>
   );
 }
+    <div className="movie-grid">
+            {movies.map(movie =>(
+                movies.title.toLowerCase().startsWith(searchQuery) &&
+                ( <MovieCard movie ={movie} key={movie.id}/>
+                 )))}
+        </div>
