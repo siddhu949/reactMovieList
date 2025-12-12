@@ -13,10 +13,16 @@ function Home(){
 
     ]
     
-    
+    const handleSearch=() =>{
+
+    }
     return <div clasName="home">
-        <form onsubmit={} className="search-form">
-            <input type="text" placeholder="search for movies..." className="search-input"/>
+        <form onsubmit={handleSearch} className="search-form">
+            <input type="text"
+             placeholder="search for movies..." 
+            className="search-input"
+            />
+            <button type='submit'className="search-button">Search</button>
         </form>
         <div className="movie-grid">
             {movies.map(movie =>(
