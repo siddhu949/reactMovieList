@@ -1,11 +1,11 @@
 import { createContext,useState,useContext,useEffect } from "react";
 
 const MovieContext=createContext()
-export const useMovieContext=()=>useContext()
-export const MovieProvider=({childhren})=>{
+export const useMovieContext=()=>useContext(MovieContext)
+export const MovieProvider=({children})=>{
     const [favorites,setFavorites]=useState([])
     useEffect(()=>{
-        const storedFavs=localStorage.getItem("favorite")
+        const storedFavs=localStorage.getItem("favorites")
         if(storedFavs) setFavorites(JSON.parse(storedFavs))
     },[])
     useEffect(()=>{
@@ -16,10 +16,10 @@ export const MovieProvider=({childhren})=>{
         setFavorites(prev=>[...prev,movie])
     }
     const removeFromFavorites=(movieId)=>{
-        setFavorites(prev=>prev.filter(movie=>movie.id!==movie.Id))
+        setFavorites(prev=>prev.filter(movie=>movie.id!==movieId))
     }
     const isFavorite=(movieId)=>{
-        return favorites.some(movie=>movie.id===movie.Id)
+        return favorites.some(movie=>movie.id===movieId)
     }
     const value={
         favorites,
@@ -30,6 +30,6 @@ export const MovieProvider=({childhren})=>{
 
     }
     return <MovieContext.Provider value={value}>
-        {childhren}
+        {children}
     </MovieContext.Provider>
 }
