@@ -1,6 +1,6 @@
-import { Routes } from 'react-router-dom';
-import './App.css'
-import HomePage from './pages/Home';
+
+import "./css/App.css";
+import Home from './pages/Home';
 import { Route,Routes } from 'react-router-dom';
 import Favorites from './pages/Favorites';
 import NavBar from './components/NavBar';

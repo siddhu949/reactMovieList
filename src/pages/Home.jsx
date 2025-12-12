@@ -1,27 +1,39 @@
 import MovieCard from "../components/MovieCard"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { searchMovies,getPopularMovies } from "../service/api";
+import "../css/Home.css";
 function Home(){
     const [searchQuery,setSearchQuery] = useState("");
-    const movies=[
-        {
-            id:1,title:"jhon-wick",release_date:"2020"
-        },
-          {
-            id:2,title:"jhon-wick1",release_date:"2021"
-        },
-          {
-            id:3,title:"jhon-wick2",release_date:"2022"
-        },
+    const [movies,setMovies] =  useState([]);
+ const [error,setError] = useState(null);
+ const[loading,setLoading]=useState(true);
 
-    ]
+     useEffect(()=>{
+        const loadPopularMovies=async()=>{
+            try{
+                const popularMovies = await getPopularMovies()
+                setMovies(popularMovies)
+            }catch(err){
+                 console.log(err)
+                setError("failed to load the movies...")
+               
+            }
+            finally{
+                setLoading(false)
+            }
+        };
+        loadPopularMovies();
+
+     },[])
+
     
-    const handleSearch=() =>{
-        e.preventDefault()
-        alert(searchQuery)
-        setSearchQuery("")
+    const handleSearch=(e) =>{
+        e.preventDefault();
+        alert(searchQuery);
+        setSearchQuery("");
     }
-    return <div clasName="home">
-        <form onsubmit={handleSearch} className="search-form">
+    return <div className="home">
+        <form onSubmit={handleSearch} className="search-form">
             <input type="text"
              placeholder="search for movies..." 
             className="search-input"
@@ -34,10 +46,10 @@ function Home(){
            {movies.map(
            (movie)=>
            (
-           < MovieCard movie={movie} key={movies.id}/>
+           < MovieCard movie={movie} key={movie.id}/>
            )
            )}
         </div>
     </div>
 }
-export default HomePage;
+export default Home;
